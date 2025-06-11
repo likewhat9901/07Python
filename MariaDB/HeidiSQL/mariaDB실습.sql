@@ -1,4 +1,22 @@
 /*
+MariaDB에서 새로운 데이터베이스와 계정 생성하기
+: 오라클에서는 계정만 생성하면 되지만 MySQL(MariaDB)에서는
+새로운 DB와 User(계정)를 동시에 생성한 후 권한설정을 해야한다.
+*/
+
+## 아래 작업은 root계정으로 접속한 후 실행해야 함 ## 
+
+# 새로운 데이터베이스 생성
+CREATE DATABASE sample_db;
+# 새로운 사용자 계정 생성(로컬에서만 접속할 수 있게 설정)
+CREATE USER 'sample_user'@'localhost' IDENTIFIED BY '1234';
+# sample_db를 사용할 수 있는 모든 권한을 sample_user에게 부여
+GRANT ALL PRIVILEGES ON sample_db.* TO 'sample_user'@'localhost';
+# 이 명령을 통해 위에서 설정한 사항을 MariaDB에 적용
+FLUSH PRIVILEGES;
+
+
+/*
 블럭단위 주석은 Java와 동일하게 작성
 */
 
@@ -12,6 +30,10 @@ Ctrl + F9 : 블럭으로 지정한 쿼리만 실행한다.
 Ctrl + Shift + F9 : 현재 쿼리를 실행한다. 단 마지막에 기술한
    세미콜론 안으로 커서를 옮긴후 실행해야 한다.
 */
+
+
+## 여기부터는 sample_user 계정으로 접속한 후 작성해주세요 ##
+
 
 /*
 테이블 생성하기
@@ -149,3 +171,13 @@ INSERT INTO board
 VALUES ('제목5', '내용5입니다.', 'korea', NOW(), 0);
 SELECT * FROM board;
 
+
+# phonebooks
+CREATE TABLE phonebooks
+(
+	idx INT NOT NULL AUTO_INCREMENT, /* 일련번호. 자동증가컬럼 */
+	name VARCHAR(30) NOT NULL, /* 제목 : 짧은 텍스트 */
+	phone VARCHAR(100) NOT NULL,
+	address VARCHAR(100) NOT NULL, /* 내용: 긴 텍스트 */
+	PRIMARY KEY (idx)
+);
