@@ -181,3 +181,5 @@ CREATE TABLE phonebooks
 	address VARCHAR(100) NOT NULL, /* 내용: 긴 텍스트 */
 	PRIMARY KEY (idx)
 );
+DESC phonebooks;
+SELECT * FROM phonebooks;
